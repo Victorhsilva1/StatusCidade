@@ -93,9 +93,9 @@ const getCapitalBySigla = function (sigla) {
 const getEstadosByRegiao = function (regiao) {
     let dadosEstados = dados.listaDeEstados.estados.filter(estados => estados.regiao.toUpperCase() == regiao.toUpperCase())
 
-    let estadosFormatados = [];
+    let estadosRegiao = [];
     dadosEstados.forEach(estado => {
-        estadosFormatados.push({
+        estadosRegiao.push({
             uf: estado.sigla,
             descricao: estado.nome
         });
@@ -107,7 +107,7 @@ const getEstadosByRegiao = function (regiao) {
             status_code: 200, 
             development: 'Victor Hugo Rocha da Silva', 
             regiao: regiao.toUpperCase(),
-            estados: estadosFormatados
+            estados: estadosRegiao
         }
     
         return message
