@@ -48,6 +48,7 @@ const getAllEstados = function () {
 
 // Função que retorna um estado pesquisando pelas siglas
 const getEstadoBySigla = function (sigla) {
+    // find é o método que retorna o primeiro elemento dos arrays
     let dadosEstado = dados.listaDeEstados.estados.find(estados => estados.sigla == sigla.toUpperCase())
     if (dadosEstado) {
         let message = {
@@ -59,7 +60,7 @@ const getEstadoBySigla = function (sigla) {
             capital: dadosEstado.capital,
             regiao: dadosEstado.regiao
         }
-
+// caso a saída seja verdadeira - 200
         return message
     } else {
         return MESSAGE_ERRO
@@ -90,18 +91,79 @@ const getCapitalBySigla = function (sigla) {
 
 // Função que retorna a região de um estado
 const getEstadosByRegiao = function (regiao) {
+    let dadosEstados = dados.listaDeEstados.estados.filter(estados => estados.regiao.toUpperCase() == regiao.toUpperCase())
+
+    let estadosFormatados = [];
+    dadosEstados.forEach(estado => {
+        estadosFormatados.push({
+            uf: estado.sigla,
+            descricao: estado.nome
+        });
+    });
+
+    if(dadosEstados) {
+        let message = {
+            status: true, 
+            status_code: 200, 
+            development: 'Victor Hugo Rocha da Silva', 
+            regiao: regiao.toUpperCase(),
+            estados: estadosFormatados
+        }
+    
+        return message
+    } else {
+        return MESSAGE_ERRO
+    }
 
 }
 
-// Função que retorna uma lista de estados referente as capitais do país
-const getVerifyCapitaisDoPais = function () {
 
+const getVerifyCapitaisDoPais = function(){
+
+    // filter é um método que permite filtar os itens com essa caracteristica
+    let dadosCapitaisPais = dados.listaDeEstados.estados.filter(estados => estados.capital_pais)
+
+    if(dadosCapitaisPais){
+
+        let message = {
+            status: true, 
+            status_code: 200, 
+            development: 'Victor Hugo Rocha da Silva', 
+            capitais: []
+        }
+
+        //
+        dadosCapitaisPais.forEach(function(item) {
+            message.capitais.push({
+
+                //parametros passados para retornas as informações
+                capital_atual: item.capital_pais.capital,
+                uf: item.sigla,
+                descricao: item.nome,
+                capital: item.capital,
+                regiao: item.regiao,
+                capital_pais_ano_inicio: item.capital_pais.ano_inicio,
+                capital_pais_ano_termino: item.capital_pais.ano_fim
+            })
+        })
+
+        return message
+    } else{
+        return MESSAGE_ERRO
+    }
 
 }
 
 // Função que retorna uma lista de cidades pesquisando pela sigla do estado
 const getCidadesBySigla = function (sigla) {
-
+    let message = {
+        status: true,
+        status_code: 200,
+        development: 'Victor Hugo Rocha da Silva',
+        uf: dadosEstado.sigla,
+        descricao: dadosEstado.nome,
+        capitais: []
+    }
 
 }
 

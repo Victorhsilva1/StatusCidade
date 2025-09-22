@@ -34,34 +34,77 @@ app.use((request, response, next)=>{
     next()
 })
 
-//endPoints
 
+// end point do getAllEstados
 app.get('/v1/estados', function(request, response){
-    
+    let estados = dados.getAllEstados()
+
+    //status code
+    response.status(estados.status_code)
+    // JSON
+    response.json(estados)
 })
 
+
+// end point do getEstadosBySigla
 app.get('/v1/estados/:uf', function(request, response){
     
+    let sigla = request.params.uf
+    let cidades = dados.getEstadosBySigla(sigla)
+    //status code
+    response.status(cidades.status_code)
+    // JSON
+    response.json(cidades)
+
 })
 
+
+// end point do getCapitalBySigla
 app.get('/v1/estados/capital/:uf', function(request, response){
+    let sigla = request.params.uf
+    let cidades = dados.getCapitalBySigla(sigla)
+    //status code
+    response.status(cidades.status_code)
+    // JSON
+    response.json(cidades)
+
     
 })
 
+// end point do getEstadosByRegiao
 app.get('/v1/estados/regiao/:regiao', function(request, response){
     
-})
+    let estados = dados.getEstadosByRegiao()
 
-app.get('/v1/estados/pais', function(request, response){
+    //status code
+    response.status(estados.status_code)
+    // JSON
+    response.json(estados)
     
 })
 
+// end point do getVerifyCapitaisDoPais
+app.get('/v1/estados/pais', function(request, response){
+
+    //neste caso passo somente o endpoint
+    let capitais = dados.getVerifyCapitaisDoPais()
+    
+    //stai8tus code
+    response.status(capitais.status_code)
+    //json com capitais
+    response.json(capitais)
+    
+})
+
+// end point do getCidadesBySigla
 app.get('/v1/estados/cidades/:uf', function(request, response){
-    let sigla = request.params.uf
-
-    let cidades = listaDeEstados.getCidadesBySigla(sigla)
-
-    response.status
+   //endpoint da requisição
+   let sigla = request.params.uf
+   let cidades = dados.getCidadesBySigla(sigla)
+   //status code
+   response.status(cidades.status_code)
+   // JSON
+   response.json(cidades)
 })
 
 app.listen(PORT, () => {
