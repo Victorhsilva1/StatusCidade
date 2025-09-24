@@ -156,13 +156,28 @@ const getVerifyCapitaisDoPais = function(){
 
 // Função que retorna uma lista de cidades pesquisando pela sigla do estado
 const getCidadesBySigla = function (sigla) {
-    let message = {
-        status: true,
-        status_code: 200,
-        development: 'Victor Hugo Rocha da Silva',
-        uf: dadosEstado.sigla,
-        descricao: dadosEstado.nome,
-        capitais: []
+    let dadosCidades = dados.listaDeEstados.estados.find(estados => estados.sigla == sigla.toUpperCase())
+
+    if(dadosCidades) {
+        //loop para pegar os nomes das cidades
+        let nomesCidades = [];
+        dadosCidades.cidades.forEach(cidade => {
+            nomesCidades.push(cidade.nome);
+        });
+
+        let message = {
+            status: true, 
+            status_code: 200, 
+            development: 'Victor Hugo Rocha da Silva', 
+            uf: sigla.toUpperCase(), 
+            descricao: dadosCidades.nome, 
+            quantidade_cidades: dadosCidades.cidades.length,  
+            cidades: nomesCidades
+        }
+    
+        return message
+    } else {
+        return MESSAGE_ERRO
     }
 
 }

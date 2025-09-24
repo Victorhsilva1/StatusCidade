@@ -15,6 +15,8 @@ const cors = require('cors') // Responsável pelas permissões da API (APP)
 const bodyParser = require('body-parser') // Responsável por gerenciar a chegada dos dados da API com o front
 
 
+const dados = require('./modulo/funcoes.js')
+
 // Retorna a porta do servidor atual ou colocamos uma porta local 
 const PORT = process.PORT || 8080
 
@@ -74,8 +76,8 @@ app.get('/v1/estados/capital/:uf', function(request, response){
 // end point do getEstadosByRegiao
 app.get('/v1/estados/regiao/:regiao', function(request, response){
     
-    let estados = dados.getEstadosByRegiao()
-
+    let regiao = request.params.regiao
+    let estados = dados.getEstadosByRegiao(regiao)
     //status code
     response.status(estados.status_code)
     // JSON
